@@ -1,0 +1,12 @@
+flask
+flask-cors
+python-dotenv
+langchain
+langchain-community
+langchain-groq
+langchain-huggingface
+faiss-cpu
+PyMuPDF
+scikit-learn
+numpy
+gunicorn
