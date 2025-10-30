@@ -23,7 +23,7 @@ print("=" * 50)
 print("Initializing Embeddings...")
 print("=" * 50)
 
-# ✅ Always try HuggingFace first (no API or quota needed)
+#  Always try HuggingFace first (no API or quota needed)
 try:
     from langchain_huggingface import HuggingFaceEmbeddings
     print("Attempting HuggingFace embeddings...")
