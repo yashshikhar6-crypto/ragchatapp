@@ -23,7 +23,7 @@ print("=" * 50)
 print("Initializing Embeddings...")
 print("=" * 50)
 
-#  Always try HuggingFace first (no API or quota needed)
+# Always try HuggingFace first (no API or quota needed)
 try:
     from langchain_huggingface import HuggingFaceEmbeddings
     print("Attempting HuggingFace embeddings...")
@@ -83,7 +83,8 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(APP_ROOT, "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-app = Flask(__name__, static_folder=os.path.join(APP_ROOT, "..", "frontend"), static_url_path="/")
+# ✅ FIXED PATH for Render — frontend folder inside the repo
+app = Flask(__name__, static_folder=os.path.join(APP_ROOT, "frontend"), static_url_path="")
 CORS(app)
 
 # Global vector store
@@ -100,8 +101,15 @@ def extract_text_from_pdf(path):
     return "\n".join(text)
 
 
+# ✅ Serve frontend
 @app.route('/')
 def serve_frontend():
+    return send_from_directory(app.static_folder, 'index.html')
+
+
+# ✅ Handle all other routes for frontend navigation (important for Vercel/Render)
+@app.errorhandler(404)
+def not_found(e):
     return send_from_directory(app.static_folder, 'index.html')
 
 
@@ -207,9 +215,8 @@ Answer:"""
 
         print("Generating answer...")
         prompt = prompt_template.format(context=context, question=question)
-        response = llm.invoke(prompt)  # Pass plain string, not dict
+        response = llm.invoke(prompt)
         answer = getattr(response, "content", str(response))
-
 
         print(f"✓ Answer generated ({len(answer)} chars)")
         return jsonify({"answer": answer})
@@ -237,4 +244,4 @@ if __name__ == '__main__':
     print(f"Groq API Key: {'✓ Set' if os.getenv('GROQ_API_KEY') else '✗ Not set'}")
     print(f"Embedding Type: {embedding_type}")
     print("=" * 50 + "\n")
-    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=True)
+    app.run(host='0.0.0.0', port=10000)  # ✅ Render runs on port 10000
