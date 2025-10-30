@@ -1,1 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ask My Documents</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="dark">
+  <div class="chat-container">
+    <header class="header">
+      <h1><span class="neon">Ask My Documents ⚡</span></h1>
+      <p class="sub">Upload. Index. Chat smartly with your files.</p>
+    </header>
 
+    <section class="upload-section">
+      <input type="file" id="fileInput" accept=".txt,.pdf" />
+      <button id="uploadBtn" class="btn-glow">Upload & Index</button>
+      <div id="uploadStatus" class="status"></div>
+    </section>
+
+    <div id="chatBox" class="chat-box"></div>
+
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Ask your document something..." />
+      <button id="sendBtn" class="btn-glow">Send</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
