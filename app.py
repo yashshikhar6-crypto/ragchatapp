@@ -244,4 +244,5 @@ if __name__ == '__main__':
     print(f"Groq API Key: {'✓ Set' if os.getenv('GROQ_API_KEY') else '✗ Not set'}")
     print(f"Embedding Type: {embedding_type}")
     print("=" * 50 + "\n")
-    app.run(host='0.0.0.0', port=10000)  # ✅ Render runs on port 10000
+   
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=False)
